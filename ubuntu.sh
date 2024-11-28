@@ -87,6 +87,7 @@ command+=" -b /:/host-rootfs"
 command+=" -b /sdcard"
 command+=" -b /storage"
 command+=" -b /mnt"
+command+=" -b /etc/hosts"
 command+=" -w /root"
 command+=" /usr/bin/env -i"
 command+=" HOME=/root"
@@ -115,7 +116,7 @@ printf "\x1b[38;5;214m[${time1}]\e[0m \x1b[38;5;83m[Installer thread/INFO]:\e[0m
 printf "\e[0m"
 
 }
-if [ "$1" = "-y" ];then
+if ! [ "$1" = "-n" ];then
 install1
 elif [ "$1" = "" ];then
 printf "\x1b[38;5;214m[${time1}]\e[0m \x1b[38;5;127m[QUESTION]:\e[0m \x1b[38;5;87m Do you want to install ubuntu-in-termux? [Y/n] "
