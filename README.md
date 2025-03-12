@@ -8,9 +8,9 @@ Better Checkout this: [crave.io](https://crave.io)
 
 ## Updates
 
-**• Updated ubuntu to 24.10**
+**• Updated ubuntu base to [24.10 (Oracular Oriole).](https://cdimage.ubuntu.com/ubuntu-base/releases/24.10/release)**
 
-**• Updated crave cli tool to version 0.2-7049**
+**• Updated crave cli tool to [latest](https://github.com/accupara/crave/releases) version.**
 
 ## Important
 

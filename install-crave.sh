@@ -1,6 +1,26 @@
 #!/bin/bash
 
-CRAVE_VERSION="0.2-7064"
+# Repository details
+REPO_URL="https://api.github.com/repos/accupara/crave/releases/latest"
+
+# Get the latest release information
+RELEASE_INFO=$(curl -s "$REPO_URL")
+
+# Extract the download URL for the aarch64 binary
+DOWNLOAD_URL=$(echo "$RELEASE_INFO" | jq -r '.assets[] | select(.name | contains("aarch64")) | .browser_download_url')
+
+if [ -z "$DOWNLOAD_URL" ]; then
+    echo "Error: Could not find aarch64 binary in the latest release."
+    exit 1
+fi
+
+# Extract the version number
+VERSION=$(echo "$RELEASE_INFO" | jq -r '.tag_name')
+
+if [ -z "$VERSION" ]; then
+    echo "Error: Could not extract the version tag."
+    exit 1
+fi
 
 echo ""
 
@@ -16,8 +36,7 @@ if ! [[ $? -eq 0 ]]; then
     echo "###################"
     echo "Installing Crave.."
     echo "###################"
-    wget https://github.com/accupara/crave/releases/download/$CRAVE_VERSION/crave-$CRAVE_VERSION-linux-aarch64.bin &>/dev/null
-    mv crave-$CRAVE_VERSION-linux-aarch64.bin /usr/bin/crave
+    curl -L -o /usr/bin/crave "$DOWNLOAD_URL"
     chmod a+x /usr/bin/crave
     echo ""
     sleep 1

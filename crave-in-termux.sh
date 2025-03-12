@@ -30,7 +30,7 @@ echo "##############################"
 echo "Setup crave in Ubuntu (Termux)"
 echo "##############################"
 echo ""
-./startubuntu.sh "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends ca-certificates curl git openssh-client python-is-python3 rsync wget -y && curl -LSs "https://raw.githubusercontent.com/GhostMaster69-dev/crave-in-termux/refs/heads/master/install-crave.sh" | bash"
+./startubuntu.sh "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends ca-certificates curl git jq openssh-client python-is-python3 rsync wget -y && curl -LSs "https://raw.githubusercontent.com/GhostMaster69-dev/crave-in-termux/refs/heads/master/install-crave.sh" | bash"
 
 sleep 1
 echo ""
