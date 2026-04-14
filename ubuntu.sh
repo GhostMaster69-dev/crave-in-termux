@@ -4,7 +4,16 @@ time1="$( date +"%r" )"
 
 install1 () {
 directory=ubuntu-fs
-UBUNTU_VERSION='25.04'
+UBUNTU_BASE="https://cdimage.ubuntu.com/ubuntu-base/releases"
+UBUNTU_VERSION="$(curl -s ${UBUNTU_BASE} | grep -oP '(?<=href=")[0-9]+\.[0-9]+(\.[0-9]+)?(-beta)?(?=/?")' | sort -V | tail -n 1)"
+if curl -s "${UBUNTU_BASE}/${UBUNTU_VERSION}/release/" | grep -q ".tar.gz"; then
+    UBUNTU_DIR="release"
+else
+    UBUNTU_DIR="beta"
+fi
+UBUNTU_FILE="$(curl -s ${UBUNTU_BASE}/${UBUNTU_VERSION}/${UBUNTU_DIR}/ | grep -oP "ubuntu-base-[^\" ]+-base-${ARCHITECTURE}\.tar\.gz" | head -n 1)"
+UBUNTU_URL="${UBUNTU_BASE}/${UBUNTU_VERSION}/${UBUNTU_DIR}/${UBUNTU_FILE}"
+
 if [ -d "$directory" ];then
 first=1
 printf "\x1b[38;5;214m[${time1}]\e[0m \x1b[38;5;227m[WARNING]:\e[0m \x1b[38;5;87m Skipping the download and the extraction\n"
@@ -35,7 +44,7 @@ exit 1
 
 esac
 
-wget https://cdimage.ubuntu.com/ubuntu-base/releases/${UBUNTU_VERSION}/release/ubuntu-base-${UBUNTU_VERSION}-base-${ARCHITECTURE}.tar.gz -q -O ubuntu.tar.gz 
+wget "${UBUNTU_URL}" -q -O ubuntu.tar.gz
 printf "\x1b[38;5;214m[${time1}]\e[0m \x1b[38;5;83m[Installer thread/INFO]:\e[0m \x1b[38;5;87m Download complete!\n"
 
 fi
